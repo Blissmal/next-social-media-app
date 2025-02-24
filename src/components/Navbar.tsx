@@ -1,4 +1,5 @@
 import Link from "next/link";
+import MobileMenu from "@/components/MobileMenu";
 
 const Navbar = () => {
     return (
@@ -7,7 +8,9 @@ const Navbar = () => {
                 <Link href="/">BLISSOCIAL</Link>
             </div>
             <div className="hidden"></div>
-            <div></div>
+            <div>
+                <MobileMenu />
+            </div>
         </div>
     );
 }
