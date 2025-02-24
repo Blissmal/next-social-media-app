@@ -1,9 +1,7 @@
 import Link from "next/link";
 import MobileMenu from "@/components/MobileMenu";
-import {useState} from "react";
 
 const Navbar = () => {
-    const [isOpen, setIsOpen] = useState(false);
     return (
         <div className="h-24 flex items-center justify-between">
             <div>
