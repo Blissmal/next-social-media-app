@@ -10,8 +10,23 @@ const AddPost = () => {
           <textarea placeholder='whats on your mind?' className='bg-slate-100 flex-1 p-2 rounded-lg'></textarea>
           <Image src="/emoji.png" alt='' width={20} height={20} className="size-5 cursor-pointer self-end" />
         </div>
-        <div className="">
-
+        <div className="flex items-center gap-4 mt-4 flex-wrap text-gray-400">
+          <div className="flex items-center gap-2 cursor-pointer">
+            <Image src="/addimage.png" alt='' width={20} height={20} />
+            Photo
+          </div>
+          <div className="flex items-center gap-2 cursor-pointer">
+            <Image src="/addVideo.png" alt='' width={20} height={20} />
+            Video
+          </div>
+          <div className="flex items-center gap-2 cursor-pointer">
+            <Image src="/poll.png" alt='' width={20} height={20} />
+            Poll
+          </div>
+          <div className="flex items-center gap-2 cursor-pointer">
+            <Image src="/addevent.png" alt='' width={20} height={20} />
+            Event
+          </div>
         </div>
       </div>
     </div>
