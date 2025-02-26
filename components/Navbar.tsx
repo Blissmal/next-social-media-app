@@ -2,8 +2,15 @@ import Link from "next/link";
 import MobileMenu from "@/components/MobileMenu";
 import Image from "next/image";
 import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
+import { syncUser, syncUsername } from "@/actions/user.acion";
 
-const Navbar = () => {
+const Navbar = async () => {
+  const user = await currentUser();
+  if(user) {
+    await syncUser()
+    await syncUsername()
+  };
   return (
     <div className="h-24 flex items-center justify-between">
       <div className="md:hidden lg:block w-[20%]">
