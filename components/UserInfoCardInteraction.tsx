@@ -1,7 +1,7 @@
 "use client"
 
 import { swithFollow } from "@/actions/user.acion";
-import { useState } from "react";
+import { useOptimistic, useState } from "react";
 
 const UserInfoCardInteraction = ({
     userId,
@@ -24,6 +24,7 @@ const UserInfoCardInteraction = ({
       })
 
       const follow = async () => {
+        switchOptimisticFollow("")
         try {
           await swithFollow(userId)
           setUserState(prev => ({
@@ -34,16 +35,23 @@ const UserInfoCardInteraction = ({
           
         }
       }
+      const [optimisticFollow, switchOptimisticFollow] = useOptimistic(
+        userState, (state) => ({
+          ...state,
+          following: state.following && false,
+            followingRequestSent: !state.following && !state.followingRequestSent ? true : false
+        })
+      )
   return (
     <>
       <form action={follow}>
         <button className='w-full bg-blue-500 text-white text-sm rounded-md p-2'>
-            {userState.following? "Following": userState.followingRequestSent ? "Friend Request Sent" : "Follow"}
+            {optimisticFollow.following? "Following": optimisticFollow.followingRequestSent ? "Friend Request Sent" : "Follow"}
         </button>
       </form>
       <form action="" className="self-end">
         <span className='text-red-400 text-xs cursor-pointer'>
-            {userState.blocked ? "Unblock User" : "Block User"}
+            {optimisticFollow.blocked ? "Unblock User" : "Block User"}
         </span>
       </form>
     </>
