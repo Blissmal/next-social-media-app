@@ -1,3 +1,4 @@
+"use server"
 import prisma from "@/lib/client";
 import { auth, currentUser } from "@clerk/nextjs/server"
 
@@ -73,5 +74,53 @@ export async function updateUser() {
     } catch (error) {
         console.log(error)
         return new Response("Failed to create a user!", {status: 500})
+    }
+}
+
+export const swithFollow = async (userId: string) => {
+    const { userId: currentUserId } = await auth()
+
+    if (!currentUserId) throw new Error("User is not authenticated")
+
+    try {
+        const existingFollow = await prisma.follower.findFirst({
+            where: {
+                followerId: currentUserId,
+                followingId: userId
+            }
+        })
+
+        if (existingFollow) {
+            await prisma.follower.delete({
+                where: {
+                    id: existingFollow.id
+                }
+            })
+        } else {
+            const existingFollowRequest = await prisma.followRequest.findFirst({
+                where: {
+                    senderId: currentUserId,
+                    receiverId: userId,
+                }
+            })
+
+            if (existingFollowRequest){
+                await prisma.followRequest.delete({
+                    where: {
+                        id: existingFollowRequest.id
+                    }
+                })
+            } else {
+                await prisma.followRequest.create({
+                    data: {
+                        senderId: currentUserId,
+                        receiverId: userId
+                    }
+                })
+            }
+        }
+    } catch (error) {
+        console.log(error)
+        throw new Error("Something went wrong")
     }
 }
