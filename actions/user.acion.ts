@@ -124,3 +124,21 @@ export const swithFollow = async (userId: string) => {
         throw new Error("Something went wrong")
     }
 }
+
+export const switchBlock = async (userId: string) => {
+    const { userId: currentUserId } = await auth()
+
+    if (!currentUserId) throw new Error("NO user logged in")
+
+    try {
+        const existingBlock = await prisma.block.findFirst({
+            where: {
+                blockerId: currentUserId,
+                blockedId: userId
+            }
+        })
+    } catch (error) {
+        console.log(error)
+        throw new Error("Something went wrong")
+    }
+}
