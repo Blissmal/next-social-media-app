@@ -1,12 +1,31 @@
+import prisma from '@/lib/client'
+import { auth, currentUser } from '@clerk/nextjs/server'
 import Image from 'next/image'
-import React from 'react'
+import React, { use } from 'react'
 
-const ProfileCard = () => {
+const ProfileCard = async () => {
+    const { userId } = await auth();
+if (!userId) return null;
+
+const user = await prisma.user.findFirst({
+  where: {
+    id: userId,
+  },
+  include: {
+    _count: {
+        select: {
+            followers: true
+        }
+    }
+  }
+});
+console.log(user)
+if (!user) return null;
   return (
     <div className='p-4 bg-white rounded-lg shadow-md text-sm flex flex-col gap-6'>
         <div className="h-20 relative">
-            <Image src="https://images.pexels.com/photos/29530548/pexels-photo-29530548/free-photo-of-scenic-florida-beach-with-palm-trees-and-lifeguard-hut.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt='' fill className='rounded-md object-cover'/>
-            <Image src="https://images.pexels.com/photos/30739946/pexels-photo-30739946/free-photo-of-young-basketball-player-holding-ball-outdoors.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt='' width={48} height={48} className='rounded-full w-12 h-12 absolute left-0 right-0 m-auto -bottom-6 ring-1 ring-white z-10'/>
+            <Image src={user.cover || "/noCover.png"} alt='' fill className='rounded-md object-cover'/>
+            <Image src={user.avatar || "/noAvatar.png"} alt='' width={48} height={48} className='rounded-full w-12 h-12 absolute left-0 right-0 m-auto -bottom-6 ring-1 ring-white z-10'/>
         </div>
         <div className="h-20 flex flex-col gap-2 items-center">
             <span className='font-semibold'>Edward Gabriel May</span>
