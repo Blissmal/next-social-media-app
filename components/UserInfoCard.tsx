@@ -102,13 +102,13 @@ const UserInfoCard = async ({ user }: { user: User }) => {
             <span>Joined {formattedDate}</span>
           </div>
         </div>
+        {(currentUserId && currentUserId!== user.id) && 
         <UserInfoCardInteraction
           userId={user.id}
-          currentUserId={currentUserId}
           isUserBlocked={isUserBlocked}
           isFollowing={isFollowing}
           isFollowingSent={isFollowingSent}
-        />
+        />}
       </div>
     </div>
   );
