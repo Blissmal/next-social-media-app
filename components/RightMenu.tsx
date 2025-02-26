@@ -4,6 +4,7 @@ import Birthdays from "./Birthdays";
 import FriendRequests from "./FriendRequests";
 import UserInfoCard from "./UserInfoCard";
 import UserMediaCard from "./UserMediaCard";
+import { Suspense } from "react";
 
 const RightMenu = ({user}: {user?: User}) => {
     return (
@@ -11,8 +12,12 @@ const RightMenu = ({user}: {user?: User}) => {
             {
                 user ? (
                     <>
-                        <UserInfoCard user={user}/>
-                        <UserMediaCard user={user}/>
+                        <Suspense fallback="loading...">
+                            <UserInfoCard user={user}/>
+                        </Suspense>
+                        <Suspense fallback="loading...">
+                            <UserMediaCard user={user}/>
+                        </Suspense>
                     </>
                 ) : null
             }

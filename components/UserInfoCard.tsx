@@ -1,15 +1,48 @@
+import prisma from '@/lib/client'
+import { auth } from '@clerk/nextjs/server'
 import { User } from '@prisma/client'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
-const UserInfoCard = ({user}: {user: User}) => {
+const UserInfoCard = async ({user}: {user: User}) => {
   const createdAtDate = new Date(user.createdAt)
   const formattedDate = createdAtDate.toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric"
   })
+
+  let isUserBlocked = false;
+  let isFollowing = false;
+  let isFollowingSent = false;
+
+  const { userId: currentUserId } = await auth()
+
+  if (currentUserId) {
+    const blockRes = await prisma.block.findFirst({
+      where: {
+        blockedId: currentUserId,
+        blockerId: user.id
+      }
+    })
+    const followRes = await prisma.follower.findFirst({
+      where: {
+        followerId: currentUserId,
+        followingId: user.id
+      }
+    })
+    const followReqRes = await prisma.followRequest.findFirst({
+      where: {
+        senderId: currentUserId,
+        receiverId: user.id
+      }
+    })
+
+    blockRes ? isUserBlocked = true : isUserBlocked = false
+    followRes ? isFollowing = true : isFollowing = false
+    followReqRes ? isFollowingSent = true : isFollowingSent = false
+  }
   return (
     <div className='p-4 bg-white rounded-lg shadow-md text-sm flex flex-col gap-4'>
       <div className="flex justify-between items-center font-medium">
