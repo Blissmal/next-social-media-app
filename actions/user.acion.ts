@@ -137,6 +137,21 @@ export const switchBlock = async (userId: string) => {
                 blockedId: userId
             }
         })
+
+        if (existingBlock) {
+            await prisma.block.delete({
+                where: {
+                    id: existingBlock.id
+                }
+            })
+        } else {
+            await prisma.block.create({
+                data: {
+                    blockerId: currentUserId,
+                    blockedId: userId
+                }
+            })
+        }
     } catch (error) {
         console.log(error)
         throw new Error("Something went wrong")
