@@ -7,7 +7,7 @@ import { syncUser, syncUsername } from "@/actions/user.acion";
 
 const Navbar = async () => {
   const user = await currentUser();
-  if (!user) throw new Error("User not authenticated");
+  if (!user) console.log("not logged in");
   if(user) {
     await syncUser()
     await syncUsername()
