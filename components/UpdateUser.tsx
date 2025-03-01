@@ -1,6 +1,7 @@
 "use client";
 import { updateProfile } from "@/actions/user.acion";
 import { User } from "@prisma/client";
+import { CldUploadWidget } from "next-cloudinary";
 import Image from "next/image";
 import React, { useState } from "react";
 
@@ -32,7 +33,10 @@ const UpdateUser = ({ user }: { user: User }) => {
             <div className="mt-4 text-xs text-gray-500">
               Use the navbar profile to change the avatar or username
             </div>
-            <div className="flex flex-col gap-4 my-4">
+            <CldUploadWidget uploadPreset="social">
+              {({ open }) => {
+                return (
+                  <div className="flex flex-col gap-4 my-4" onClick={() => open()}>
               <label htmlFor="">Cover Picture</label>
               <div className="flex items-center gap-2 cursor-pointer">
                 <Image
@@ -45,6 +49,9 @@ const UpdateUser = ({ user }: { user: User }) => {
                 <span className="text-xs underline text-gray-600">Change</span>
               </div>
             </div>
+                )
+              }}
+            </CldUploadWidget>
             <div className="flex flex-wrap justify-between gap-2 xl:gap-4">
               <div className="flex flex-col gap-4">
                 <label htmlFor="" className="text-xs text-gray-500">
