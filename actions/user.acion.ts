@@ -171,7 +171,7 @@ export const declineFollowRequest = async (userId: string) => {
     }
 }
 
-export const updateProfile = async (formData: FormData) => {
+export const updateProfile = async (formData: FormData, cover: string) => {
     const fields = Object.fromEntries(formData)
 
     const filterdFields = Object.fromEntries(
@@ -189,7 +189,7 @@ export const updateProfile = async (formData: FormData) => {
         website: z.string().max(60).optional(),
     })
 
-    const validatedFields = Profile.safeParse(filterdFields)
+    const validatedFields = Profile.safeParse({cover, ...filterdFields})
 
     if (!validatedFields.success) {
         console.log(validatedFields.error.flatten().fieldErrors)
