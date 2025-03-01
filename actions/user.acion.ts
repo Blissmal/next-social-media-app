@@ -169,3 +169,7 @@ export const declineFollowRequest = async (userId: string) => {
         throw new Error("Something went wrong")
     }
 }
+
+export const updateProfile = async (formData: FormData) => {
+    
+}

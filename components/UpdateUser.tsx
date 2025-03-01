@@ -46,6 +46,7 @@ const UpdateUser = ({ user }: { user: User }) => {
                 </label>
                 <input
                   type="text"
+                  name="name"
                   placeholder={user.name || "John"}
                   className="ring-1 ring-gray-300 p-[13px] rounded-md text-xs"
                 />
@@ -57,6 +58,7 @@ const UpdateUser = ({ user }: { user: User }) => {
                 </label>
                 <input
                   type="text"
+                  name="surname"
                   placeholder={user.surname || "Doe"}
                   className="ring-1 ring-gray-300 p-[13px] rounded-md text-xs"
                 />
@@ -68,6 +70,7 @@ const UpdateUser = ({ user }: { user: User }) => {
                 </label>
                 <input
                   type="text"
+                  name="description"
                   placeholder={user.description || "Hey there"}
                   className="ring-1 ring-gray-300 p-[13px] rounded-md text-xs"
                 />
@@ -78,6 +81,7 @@ const UpdateUser = ({ user }: { user: User }) => {
                 </label>
                 <input
                   type="text"
+                  name="city"
                   placeholder={user.city || "Nairobi"}
                   className="ring-1 ring-gray-300 p-[13px] rounded-md text-xs"
                 />
@@ -88,6 +92,7 @@ const UpdateUser = ({ user }: { user: User }) => {
                 </label>
                 <input
                   type="text"
+                  name="school"
                   placeholder={user.school || "MIT"}
                   className="ring-1 ring-gray-300 p-[13px] rounded-md text-xs"
                 />
@@ -98,6 +103,7 @@ const UpdateUser = ({ user }: { user: User }) => {
                 </label>
                 <input
                   type="text"
+                  name="work"
                   placeholder={user.work || "Software Engineer"}
                   className="ring-1 ring-gray-300 p-[13px] rounded-md text-xs"
                 />
@@ -108,6 +114,7 @@ const UpdateUser = ({ user }: { user: User }) => {
                 </label>
                 <input
                   type="text"
+                  name=""
                   placeholder={user.website || "https://domain.com"}
                   className="ring-1 ring-gray-300 p-[13px] rounded-md text-xs"
                 />
