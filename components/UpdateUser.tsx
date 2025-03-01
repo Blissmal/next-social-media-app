@@ -3,7 +3,7 @@ import { updateProfile } from "@/actions/user.acion";
 import { User } from "@prisma/client";
 import { CldUploadWidget } from "next-cloudinary";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useActionState, useState } from "react";
 
 const UpdateUser = ({ user }: { user: User }) => {
   const [open, setOpen] = useState(false);
@@ -11,6 +11,9 @@ const UpdateUser = ({ user }: { user: User }) => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const [state, formAction] = useActionState(updateProfile, {success: false, error: false})
+
   return (
     <div>
       <span
@@ -25,7 +28,7 @@ const UpdateUser = ({ user }: { user: User }) => {
             onSubmit={async (e) => {
               e.preventDefault();
               const formData = new FormData(e.currentTarget);
-              await updateProfile(formData, cover?.secure_url);
+              await formAction({formData, cover:cover?.secure_url || ""});
               setOpen(false);
             }}
             className="p-12 bg-white rounded-lg shadow-md flex flex-col gap-2 w-full md:w-1/2 xl:w-1/3 relative"
@@ -142,6 +145,8 @@ const UpdateUser = ({ user }: { user: User }) => {
             <button className="bg-blue-500 p-2 mt-2 rounded-md text-white">
               Update
             </button>
+            {state.success && <span className="text-green-500">Profile has been updated !</span>}
+            {state.error && <span className="text-red-500">Something went wrong !</span>}
             <div
               className="absolute text-lg right-2 top-3 cursor-pointer"
               onClick={handleClose}
