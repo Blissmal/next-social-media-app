@@ -150,9 +150,6 @@ const UpdateUser = ({ user }: { user: User }) => {
                 />
               </div>
             </div>
-            <button className="bg-blue-500 p-2 mt-2 rounded-md text-white">
-              Update
-            </button>
             {state.success && (
               <span className="text-green-500">Profile has been updated !</span>
             )}
