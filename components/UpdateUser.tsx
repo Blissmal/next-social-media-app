@@ -10,18 +10,16 @@ import UpdateButton from "./UpdateButton";
 const UpdateUser = ({ user }: { user: User }) => {
   const [open, setOpen] = useState(false);
   const [cover, setCover] = useState<any>();
-  const router = useRouter()
+  const router = useRouter();
   const [state, formAction] = useActionState(updateProfile, {
     success: false,
     error: false,
   });
-  
+
   const handleClose = () => {
     setOpen(false);
-    state.success && router.refresh()
+    state.success && router.refresh();
   };
-  
-
 
   return (
     <div>
