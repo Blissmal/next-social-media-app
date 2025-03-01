@@ -25,6 +25,49 @@ const UpdateUser = ({user}: {user: User}) => {
               <span className='text-xs underline text-gray-600'>Change</span>
             </div>
           </div>
+          <div className='flex flex-wrap justify-between gap-2 xl:gap-4'>
+            <div className='flex flex-col gap-4'>
+              <label htmlFor="" className='text-xs text-gray-500'>First Name</label>
+              <input type="text" placeholder={user.name || "John"}/>
+            </div>
+          </div>
+          <div className='flex flex-wrap justify-between gap-2 xl:gap-4'>
+            <div className='flex flex-col gap-4'>
+              <label htmlFor="" className='text-xs text-gray-500'>Surname</label>
+              <input type="text" placeholder={user.surname || "Doe"}/>
+            </div>
+          </div>
+          <div className='flex flex-wrap justify-between gap-2 xl:gap-4'>
+            <div className='flex flex-col gap-4'>
+              <label htmlFor="" className='text-xs text-gray-500'>Description</label>
+              <input type="text" placeholder={user.description || "Hey there"}/>
+            </div>
+          </div>
+          <div className='flex flex-wrap justify-between gap-2 xl:gap-4'>
+            <div className='flex flex-col gap-4'>
+              <label htmlFor="" className='text-xs text-gray-500'>City</label>
+              <input type="text" placeholder={user.city || "Nairobi"}/>
+            </div>
+          </div>
+          <div className='flex flex-wrap justify-between gap-2 xl:gap-4'>
+            <div className='flex flex-col gap-4'>
+              <label htmlFor="" className='text-xs text-gray-500'>School</label>
+              <input type="text" placeholder={user.school || "MIT"}/>
+            </div>
+          </div>
+          <div className='flex flex-wrap justify-between gap-2 xl:gap-4'>
+            <div className='flex flex-col gap-4'>
+              <label htmlFor="" className='text-xs text-gray-500'>Work</label>
+              <input type="text" placeholder={user.work || "Software Engineer"}/>
+            </div>
+          </div>
+          <div className='flex flex-wrap justify-between gap-2 xl:gap-4'>
+            <div className='flex flex-col gap-4'>
+              <label htmlFor="" className='text-xs text-gray-500'>Website</label>
+              <input type="text" placeholder={user.website || "https://domain.com"}/>
+            </div>
+          </div>
+          <button className='bg-blue-500 p-2 mt-2 rounded-md text-white'>Update</button>
           <div className='absolute text-lg right-2 top-3 cursor-pointer' onClick={handleClose}>
           X
         </div>
