@@ -190,5 +190,20 @@ export const updateProfile = async (formData: FormData) => {
 
     if (!validatedFields.success) {
         console.log(validatedFields.error.flatten().fieldErrors)
+        return "err"
+    }
+    const {userId} = await auth()
+
+    if (!userId) return "error"
+
+    try {
+        await prisma.user.update({
+            where: {
+                id: userId
+            },
+            data: validatedFields.data
+        })
+    } catch (error) {
+        console.log(error)
     }
 }
