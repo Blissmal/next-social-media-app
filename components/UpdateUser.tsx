@@ -114,7 +114,7 @@ const UpdateUser = ({ user }: { user: User }) => {
                 </label>
                 <input
                   type="text"
-                  name=""
+                  name="website"
                   placeholder={user.website || "https://domain.com"}
                   className="ring-1 ring-gray-300 p-[13px] rounded-md text-xs"
                 />
