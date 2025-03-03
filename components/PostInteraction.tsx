@@ -1,4 +1,5 @@
 "use client";
+import { swithLike } from "@/actions/user.acion";
 import { useAuth } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
 import Image from "next/image";
@@ -33,7 +34,11 @@ const PostInteraction = ({
   const likeAction = async () => {
     switchOptimisticLike("")
     try {
-        
+        swithLike(postId);
+        setLikeState(state => ({
+            likeCount: state.isLiked ? state.likeCount - 1 : state.likeCount + 1,
+            isLiked: !state.isLiked,
+        }))
     } catch (error) {
         
     }
