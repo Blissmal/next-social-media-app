@@ -1,7 +1,16 @@
+import prisma from '@/lib/client'
 import Image from 'next/image'
 import React from 'react'
 
-const Comments = () => {
+const Comments = async ({postId}: {postId: number}) => {
+  const comment = await prisma.comment.findMany({
+    where: {
+      postId
+    },
+    include: {
+      user: true
+    }
+  })
   return (
     <div>
       <div className="flex items-center gap-4">
