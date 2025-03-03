@@ -1,8 +1,11 @@
 import Image from 'next/image'
 import React from 'react'
 import Comments from './Comments'
+import { Post as PostType, User } from '@prisma/client'
 
-const Post = () => {
+type FeedPostType = PostType & {user: User} & {likes: [{userId: string}]} & {_count: {comments: number}}
+
+const Post = ({post}: {post: FeedPostType}) => {
   return (
     <div className='flex flex-col gap-4'>
       <div className="flex items-center justify-between">
