@@ -1,5 +1,6 @@
 "use client";
 
+import { addComment } from "@/actions/user.acion";
 import { useUser } from "@clerk/nextjs";
 import { Comment, User } from "@prisma/client";
 import Image from "next/image";
@@ -17,6 +18,18 @@ const CommentList = ({
   const { user } = useUser();
   const [commentState, setCommentState] = useState(comments);
   const [description, setDescription] = useState("");
+
+  const add = async () => {
+    if (!user || !description) return;
+
+    addOptimisticComment()
+    try {
+      const createdComment = await addComment(postId, description)
+    } catch (error) {
+      
+    }
+  }
+
   const [optimisticComments, addOptimisticComment] = useOptimistic(commentState, (state, value: CommentWithUser) => [value, ...state])
   return (
     <>
