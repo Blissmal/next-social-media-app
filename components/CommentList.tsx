@@ -22,9 +22,31 @@ const CommentList = ({
   const add = async () => {
     if (!user || !description) return;
 
-    addOptimisticComment()
+    addOptimisticComment({
+      id: Math.random(),
+      description,
+      createdAt: new Date(Date.now()),
+      UpdatedAt: new Date(Date.now()),
+      userId: user.id,
+      postId: postId,
+      user: {
+        id: user.id,
+        username: "Sending please wait ...",
+        avatar: user.imageUrl || "/noAvatar.png",
+        cover: "",
+        description: "",
+        name: "",
+        surname: "",
+        city: "",
+        work: "",
+        school: "",
+        website: "",
+        createdAt: new Date(Date.now()),
+      }
+    })
     try {
       const createdComment = await addComment(postId, description)
+      setCommentState(prev => [createdComment, ...prev])
     } catch (error) {
       
     }
@@ -41,7 +63,7 @@ const CommentList = ({
           height={32}
           className="w-8 h-8 rounded-full"
         />
-        <form action={} className="flex-1 flex items-center justify-between bg-slate-100 rounded-xl text-sm px-6 py-2 w-full">
+        <form action={add} className="flex-1 flex items-center justify-between bg-slate-100 rounded-xl text-sm px-6 py-2 w-full">
           <input
             type="text"
             placeholder="Write a comment..."
