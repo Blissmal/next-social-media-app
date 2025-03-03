@@ -40,7 +40,7 @@ const PostInteraction = ({
             isLiked: !state.isLiked,
         }))
     } catch (error) {
-        
+        console.log(error)
     }
   }
 
