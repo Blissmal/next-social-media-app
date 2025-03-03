@@ -270,7 +270,10 @@ export const addComment = async (postId: number, description: string) => {
           user: true
         }
       })
+
+      return createdComment
     } catch (error) {
+      console.log(error)
       throw new Error("Something went wrong !")
     }
 }
