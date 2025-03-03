@@ -39,10 +39,33 @@ const Feed = async ({username}: {username?: string}) => {
         followerId: userId
       },
       select: {
-        followerId: true
+        followingId: true
       }
     })
-    console.log(following)
+    const followingIds = following.map(f => f.followingId)
+    posts = await prisma.post.findMany({
+      where: {
+        userId: {
+          in: followingIds
+        }
+      },
+      include: {
+        user: true,
+        likes: {
+          select: {
+            userId: true
+          }
+        },
+        _count: {
+          select: {
+            comments: true
+          }
+        }
+      },
+      orderBy: {
+        createdAt: "desc"
+      }
+    })
    }
 
   return (
