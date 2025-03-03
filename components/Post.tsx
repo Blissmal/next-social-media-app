@@ -2,6 +2,7 @@ import Image from 'next/image'
 import React from 'react'
 import Comments from './Comments'
 import { Post as PostType, User } from '@prisma/client'
+import PostInteraction from './PostInteraction'
 
 type FeedPostType = PostType & {user: User} & {likes: [{userId: string}]} & {_count: {comments: number}}
 
@@ -21,7 +22,7 @@ const Post = ({post}: {post: FeedPostType}) => {
         </div>}
         <p>{post.description}</p>
       </div>
-      
+      <PostInteraction postId={post.id} likes={post.likes.map(like => like.userId)} comments={post._count.comments} />
       <Comments />
     </div>
   )
