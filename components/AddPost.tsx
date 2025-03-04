@@ -26,11 +26,18 @@ const AddPost = () => {
         className="w-12 h-12 object-cover rounded-full"
       />
       <div className="flex-1">
-        <form onSubmit={async (e) => {
-          e.preventDefault();
-          const formData = new FormData(e.currentTarget);
-          await addPost(formData, img?.secure_url || "");
-        }} className="flex gap-4">
+        <form
+          onSubmit={async (e) => {
+            e.preventDefault();
+            if (img || desc) {
+              const formData = new FormData(e.currentTarget);
+              await addPost(formData, img?.secure_url || "");
+            } else {
+              window.alert("No data added !")
+            }
+          }}
+          className="flex gap-4"
+        >
           <textarea
             name="description"
             placeholder="whats on your mind?"
@@ -38,14 +45,14 @@ const AddPost = () => {
             onChange={(e) => setDesc(e.target.value)}
           ></textarea>
           <div className="">
-          <Image
-            src="/emoji.png"
-            alt=""
-            width={20}
-            height={20}
-            className="size-5 cursor-pointer self-end"
-          />
-          <AddPostButton />
+            <Image
+              src="/emoji.png"
+              alt=""
+              width={20}
+              height={20}
+              className="size-5 cursor-pointer self-end"
+            />
+            <AddPostButton />
           </div>
         </form>
         <div className="flex items-center gap-4 mt-4 flex-wrap text-gray-400">
