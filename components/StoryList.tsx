@@ -11,11 +11,13 @@ type StoryWithUser = Story & {
   user: User;
 };
 
-const StoryList = ({ stories }: { stories: StoryWithUser[] }) => {
+const StoryList = ({ stories, userId }: { stories: StoryWithUser[], userId: string }) => {
   const [storyList, setStoryList] = useState(stories);
   const [img, setImg] = useState<any>();
 
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
+
+//   if (!user && isLoaded) return null;
 
   const [optimisticStories, addOPtimisticStories] = useOptimistic(
     storyList,
@@ -25,14 +27,36 @@ const StoryList = ({ stories }: { stories: StoryWithUser[] }) => {
   const add = async () => {
     if (!img?.secure_url) return;
 
-    addOPtimisticStories()
+    addOPtimisticStories({
+      id: Math.random(),
+      img: img.secure_url,
+      createdAt: new Date(Date.now()),
+      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
+      userId: userId,
+      user: {
+        id: userId,
+        username: "Sending ...",
+        avatar: user?.imageUrl || "/noAvatar.png",
+        cover: "",
+        description: "",
+        name: "",
+        surname: "",
+        city: "",
+        work: "",
+        school: "",
+        website: "",
+        createdAt: new Date(Date.now()),
+      },
+    });
 
     try {
-        await addStory(img.secure_url)
+      const createdStory = await addStory(img.secure_url);
+      setStoryList(prev => [createdStory, ...prev])
+      setImg(null)
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return (
     <>
