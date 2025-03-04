@@ -11,13 +11,19 @@ type StoryWithUser = Story & {
   user: User;
 };
 
-const StoryList = ({ stories, userId }: { stories: StoryWithUser[], userId: string }) => {
+const StoryList = ({
+  stories,
+  userId,
+}: {
+  stories: StoryWithUser[];
+  userId: string;
+}) => {
   const [storyList, setStoryList] = useState(stories);
   const [img, setImg] = useState<any>();
 
   const { user, isLoaded } = useUser();
 
-//   if (!user && isLoaded) return null;
+  //   if (!user && isLoaded) return null;
 
   const [optimisticStories, addOPtimisticStories] = useOptimistic(
     storyList,
@@ -51,8 +57,11 @@ const StoryList = ({ stories, userId }: { stories: StoryWithUser[], userId: stri
 
     try {
       const createdStory = await addStory(img.secure_url);
-      setStoryList((prev: StoryWithUser[]) => [createdStory as StoryWithUser, ...prev])
-      setImg(null)
+      setStoryList((prev: StoryWithUser[]) => [
+        createdStory as StoryWithUser,
+        ...prev,
+      ]);
+      setImg(null);
     } catch (error) {
       console.log(error);
     }
