@@ -51,7 +51,7 @@ const StoryList = ({ stories, userId }: { stories: StoryWithUser[], userId: stri
 
     try {
       const createdStory = await addStory(img.secure_url);
-      setStoryList(prev => [createdStory, ...prev])
+      setStoryList((prev: StoryWithUser[]) => [createdStory as StoryWithUser, ...prev])
       setImg(null)
     } catch (error) {
       console.log(error);
