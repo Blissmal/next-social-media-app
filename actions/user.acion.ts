@@ -1,6 +1,7 @@
 "use server";
 import prisma from "@/lib/client";
 import { auth, currentUser } from "@clerk/nextjs/server";
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 export async function syncUser() {
@@ -279,5 +280,28 @@ export const addComment = async (postId: number, description: string) => {
 }
 
 export const addPost = async (formData: FormData, img: string) => {
+  const desc = formData.get("description") as string;
+  const { userId } = await auth()
 
+  if (!userId) return "Not logged in"
+
+  const Desc = z.string().min(1).max(255)
+  const validatedDesc = Desc.safeParse(desc)
+
+  if (!validatedDesc) {
+    return "not validated"
+  }
+
+  try {
+    await prisma.post.create({
+      data: {
+        description: validatedDesc.data,
+        userId,
+        img
+      }
+    })
+    revalidatePath("/")
+  } catch (error) {
+    console.log(error)
+  }
 }
