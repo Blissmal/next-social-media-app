@@ -1,9 +1,11 @@
-import prisma from '@/lib/client'
+"use client"
+
 import { auth } from '@clerk/nextjs/server'
 import Image from 'next/image'
 import React from 'react'
 
 const AddPost = async () => {
+  const { userId } = await auth()
   return (
     <div className='p-4 bg-white shadow-md rounded-lg flex gap-4 justify-between text-sm'>
       <Image src="https://images.pexels.com/photos/20937745/pexels-photo-20937745/free-photo-of-couple-sitting-on-terrace-on-hilltop.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load" alt='' width={48} height={48} className="w-12 h-12 object-cover rounded-full" />
