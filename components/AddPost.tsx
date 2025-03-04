@@ -1,13 +1,14 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
+import { CldUploadWidget } from "next-cloudinary";
 import Image from "next/image";
 import React, { useState } from "react";
 
 const AddPost = () => {
   const { user, isLoaded } = useUser();
-  const [desc, setDesc] = useState("")
-  const [img, setImg] = useState<any>()
+  const [desc, setDesc] = useState("");
+  const [img, setImg] = useState<any>();
 
   if (!isLoaded) {
     return "Loading ...";
@@ -28,7 +29,7 @@ const AddPost = () => {
             name="description"
             placeholder="whats on your mind?"
             className="bg-slate-100 flex-1 p-2 rounded-lg"
-            onChange={e => setDesc(e.target.value)}
+            onChange={(e) => setDesc(e.target.value)}
           ></textarea>
           <Image
             src="/emoji.png"
@@ -40,6 +41,25 @@ const AddPost = () => {
           <button>Send</button>
         </form>
         <div className="flex items-center gap-4 mt-4 flex-wrap text-gray-400">
+          <CldUploadWidget
+            uploadPreset="social"
+            onSuccess={(result, { widget }) => {
+              setImg(result.info);
+              widget.close;
+            }}
+          >
+            {({ open }) => {
+              return (
+                <div
+                  className="flex items-center gap-2 cursor-pointer"
+                  onClick={() => open()}
+                >
+                  <Image src="/addimage.png" alt="" width={20} height={20} />
+                  Photo
+                </div>
+              );
+            }}
+          </CldUploadWidget>
           <div className="flex items-center gap-2 cursor-pointer">
             <Image src="/addimage.png" alt="" width={20} height={20} />
             Photo
