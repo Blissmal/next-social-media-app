@@ -4,6 +4,7 @@ import { useUser } from "@clerk/nextjs";
 import { CldUploadWidget } from "next-cloudinary";
 import Image from "next/image";
 import React, { useState } from "react";
+import AddPostButton from "./AddPostButton";
 
 const AddPost = () => {
   const { user, isLoaded } = useUser();
@@ -38,7 +39,7 @@ const AddPost = () => {
             height={20}
             className="size-5 cursor-pointer self-end"
           />
-          <button>Send</button>
+          <AddPostButton />
         </form>
         <div className="flex items-center gap-4 mt-4 flex-wrap text-gray-400">
           <CldUploadWidget
@@ -60,10 +61,6 @@ const AddPost = () => {
               );
             }}
           </CldUploadWidget>
-          <div className="flex items-center gap-2 cursor-pointer">
-            <Image src="/addimage.png" alt="" width={20} height={20} />
-            Photo
-          </div>
           <div className="flex items-center gap-2 cursor-pointer">
             <Image src="/addVideo.png" alt="" width={20} height={20} />
             Video
