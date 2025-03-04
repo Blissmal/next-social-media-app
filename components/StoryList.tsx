@@ -32,11 +32,9 @@ const StoryList = ({ stories }: { stories: StoryWithUser[] }) => {
       >
         {({ open }) => {
           return (
-            <div
-              onClick={() => open()}
-              className="flex flex-col relative items-center gap-2 cursor-pointer"
-            >
+            <div className="flex flex-col relative items-center gap-2 cursor-pointer">
               <Image
+                onClick={() => open()}
                 src={img?.secure_url || user?.imageUrl || "/noAvatar.png"}
                 alt=""
                 width={80}
@@ -45,7 +43,9 @@ const StoryList = ({ stories }: { stories: StoryWithUser[] }) => {
               />
               {img ? (
                 <form action="">
-                    <button className="text-xs bg-blue-500 p-1 rounded-md text-white">Send</button>
+                  <button className="text-xs bg-blue-500 p-1 rounded-md text-white">
+                    Send
+                  </button>
                 </form>
               ) : (
                 <span className="font-medium">Add a story</span>
