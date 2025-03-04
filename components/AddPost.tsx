@@ -26,7 +26,11 @@ const AddPost = () => {
         className="w-12 h-12 object-cover rounded-full"
       />
       <div className="flex-1">
-        <form action={formData => addPost(formData, img?.secure_url || "")} className="flex gap-4">
+        <form onSubmit={async (e) => {
+          e.preventDefault();
+          const formData = new FormData(e.currentTarget);
+          await addPost(formData, img?.secure_url || "");
+        }} className="flex gap-4">
           <textarea
             name="description"
             placeholder="whats on your mind?"
