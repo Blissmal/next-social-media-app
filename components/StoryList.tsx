@@ -23,16 +23,18 @@ const StoryList = ({
 
   return (
     <div>
-      <div className="flex flex-col items-center gap-2 cursor-pointer">
+      {optimisticStories.map(story => (
+        <div key={story.id} className="flex flex-col items-center gap-2 cursor-pointer">
         <Image
-          src="https://images.pexels.com/photos/30550408/pexels-photo-30550408/free-photo-of-sunlit-forest-with-rays-through-trees.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load"
+          src={story.user.avatar || "/noAvatar.png"}
           alt=""
           width={80}
           height={80}
           className="w-20 h-20 rounded-full"
         />
-        <span className="font-medium">Ricky</span>
+        <span className="font-medium">{story.user.name || story.user.username}</span>
       </div>
+      ))}
     </div>
   );
 };
