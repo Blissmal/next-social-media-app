@@ -278,6 +278,6 @@ export const addComment = async (postId: number, description: string) => {
     }
 }
 
-export const addPost = async () => {
-  
+export const addPost = async (formData: FormData, img: string) => {
+
 }

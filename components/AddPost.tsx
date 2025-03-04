@@ -5,6 +5,7 @@ import { CldUploadWidget } from "next-cloudinary";
 import Image from "next/image";
 import React, { useState } from "react";
 import AddPostButton from "./AddPostButton";
+import { addPost } from "@/actions/user.acion";
 
 const AddPost = () => {
   const { user, isLoaded } = useUser();
@@ -25,13 +26,14 @@ const AddPost = () => {
         className="w-12 h-12 object-cover rounded-full"
       />
       <div className="flex-1">
-        <form action="" className="flex gap-4">
+        <form action={formData => addPost(formData, img?.secure_url || "")} className="flex gap-4">
           <textarea
             name="description"
             placeholder="whats on your mind?"
             className="bg-slate-100 flex-1 p-2 rounded-lg"
             onChange={(e) => setDesc(e.target.value)}
           ></textarea>
+          <div className="">
           <Image
             src="/emoji.png"
             alt=""
@@ -40,6 +42,7 @@ const AddPost = () => {
             className="size-5 cursor-pointer self-end"
           />
           <AddPostButton />
+          </div>
         </form>
         <div className="flex items-center gap-4 mt-4 flex-wrap text-gray-400">
           <CldUploadWidget
