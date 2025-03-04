@@ -1,5 +1,6 @@
 "use client";
 
+import { addStory } from "@/actions/user.acion";
 import { useUser } from "@clerk/nextjs";
 import { Story, User } from "@prisma/client";
 import { CldUploadWidget } from "next-cloudinary";
@@ -21,6 +22,18 @@ const StoryList = ({ stories }: { stories: StoryWithUser[] }) => {
     (state, value: StoryWithUser) => [value, ...stories]
   );
 
+  const add = async () => {
+    if (!img?.secure_url) return;
+
+    addOPtimisticStories()
+
+    try {
+        await addStory(img.secure_url)
+    } catch (error) {
+        console.log(error)
+    }
+  }
+
   return (
     <>
       <CldUploadWidget
@@ -39,10 +52,10 @@ const StoryList = ({ stories }: { stories: StoryWithUser[] }) => {
                 alt=""
                 width={80}
                 height={80}
-                className="w-20 h-20 rounded-full"
+                className="w-20 h-20 rounded-full object-cover"
               />
               {img ? (
-                <form action="">
+                <form action={add}>
                   <button className="text-xs bg-blue-500 p-1 rounded-md text-white">
                     Send
                   </button>
