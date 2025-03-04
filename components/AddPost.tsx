@@ -2,10 +2,12 @@
 
 import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 
 const AddPost = () => {
   const { user, isLoaded } = useUser();
+  const [desc, setDesc] = useState("")
+  const [img, setImg] = useState<any>()
 
   if (!isLoaded) {
     return "Loading ...";
@@ -14,7 +16,7 @@ const AddPost = () => {
   return (
     <div className="p-4 bg-white shadow-md rounded-lg flex gap-4 justify-between text-sm">
       <Image
-        src="https://images.pexels.com/photos/20937745/pexels-photo-20937745/free-photo-of-couple-sitting-on-terrace-on-hilltop.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load"
+        src={user?.imageUrl || "/noAvatar.png"}
         alt=""
         width={48}
         height={48}
@@ -26,6 +28,7 @@ const AddPost = () => {
             name="description"
             placeholder="whats on your mind?"
             className="bg-slate-100 flex-1 p-2 rounded-lg"
+            onChange={e => setDesc(e.target.value)}
           ></textarea>
           <Image
             src="/emoji.png"
