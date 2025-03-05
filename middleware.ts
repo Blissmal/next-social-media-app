@@ -8,7 +8,7 @@ export default clerkMiddleware(async (auth, req) => {
 
     if (isProtectedRoute(req)) {
         try {
-            const { userId } = await auth(); // ✅ Await the auth call
+            const { userId } = await auth();
 
             if (!userId) {
                 console.log("Redirecting to sign-in...");
