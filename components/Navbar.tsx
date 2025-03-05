@@ -13,7 +13,7 @@ const Navbar = async () => {
     await syncUsername()
   };
   return (
-    <div className="h-24 flex items-center justify-between">
+    <div className="h-24 px-4 flex items-center justify-between">
       <div className="md:hidden lg:block w-[20%]">
         <Link href="/" className="font-bold text-xl text-blue-600">
           BLISSOCIAL
