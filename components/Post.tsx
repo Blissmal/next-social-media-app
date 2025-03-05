@@ -3,6 +3,7 @@ import React, { Suspense } from "react";
 import Comments from "./Comments";
 import { Post as PostType, User } from "@prisma/client";
 import PostInteraction from "./PostInteraction";
+import PostInfo from "./PostInfo";
 
 type FeedPostType = PostType & { user: User } & {
   likes: [{ userId: string }];
@@ -26,7 +27,7 @@ const Post = ({ post }: { post: FeedPostType }) => {
               : post.user.username}
           </span>
         </div>
-        <Image src="/more.png" alt="" width={16} height={16} />
+        <PostInfo postId={post.id}/>
       </div>
       <div className="flex flex-col gap-4">
         {post.img && (
