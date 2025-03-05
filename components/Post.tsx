@@ -4,12 +4,14 @@ import Comments from "./Comments";
 import { Post as PostType, User } from "@prisma/client";
 import PostInteraction from "./PostInteraction";
 import PostInfo from "./PostInfo";
+import { auth } from "@clerk/nextjs/server";
 
 type FeedPostType = PostType & { user: User } & {
   likes: [{ userId: string }];
 } & { _count: { comments: number } };
 
-const Post = ({ post }: { post: FeedPostType }) => {
+const Post = async ({ post }: { post: FeedPostType }) => {
+  const {userId} = await auth()
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
@@ -27,7 +29,7 @@ const Post = ({ post }: { post: FeedPostType }) => {
               : post.user.username}
           </span>
         </div>
-        <PostInfo postId={post.id}/>
+        {userId === post.user.id && <PostInfo postId={post.id}/>}
       </div>
       <div className="flex flex-col gap-4">
         {post.img && (
