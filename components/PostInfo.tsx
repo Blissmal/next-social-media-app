@@ -1,10 +1,12 @@
 "use client";
 
+import { deletePost } from "@/actions/user.acion";
 import Image from "next/image";
 import React, { useState } from "react";
 
 const PostInfo = ({ postId }: { postId: number }) => {
   const [open, setOpen] = useState(false);
+  const deletePostWithId = deletePost.bind(null, postId)
   return (
     <div className="relative">
       <Image
@@ -20,7 +22,7 @@ const PostInfo = ({ postId }: { postId: number }) => {
         >
             <span className="cursor-pointer">View</span>
             <span className="cursor-pointer">Repost</span>
-            <form action="">
+            <form action={deletePostWithId}>
                 <button>Delete</button>
             </form>
         </div>
