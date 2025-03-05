@@ -4,6 +4,7 @@ import { addComment } from "@/actions/user.acion";
 import { useUser } from "@clerk/nextjs";
 import { Comment, User } from "@prisma/client";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useOptimistic, useState } from "react";
 
 type CommentWithUser = Comment & { user: User };
@@ -90,7 +91,7 @@ const CommentList = ({
               className="w-10 h-10 rounded-full"
             />
             <div className="flex flex-col gap-2 flex-1">
-              <span className="font-medium">{(comment.user.name && comment.user.surname) ? comment.user.name + " " + comment.user.surname : comment.user.username}</span>
+              <Link href={`/profile/${comment.user.username}`} className="font-medium">{(comment.user.name && comment.user.surname) ? comment.user.name + " " + comment.user.surname : comment.user.username}</Link>
               <p>
                 {comment.description}
               </p>
