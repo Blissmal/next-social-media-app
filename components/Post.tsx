@@ -5,6 +5,7 @@ import { Post as PostType, User } from "@prisma/client";
 import PostInteraction from "./PostInteraction";
 import PostInfo from "./PostInfo";
 import { auth } from "@clerk/nextjs/server";
+import Link from "next/link";
 
 type FeedPostType = PostType & { user: User } & {
   likes: [{ userId: string }];
@@ -23,11 +24,11 @@ const Post = async ({ post }: { post: FeedPostType }) => {
             height={40}
             className="size-10 rounded-full"
           />
-          <span className="font-medium">
+          <Link href={`/profile/${post.user.username}`} className="font-medium">
             {post.user.name && post.user.surname
               ? post.user.name + " " + post.user.surname
               : post.user.username}
-          </span>
+          </Link>
         </div>
         {userId === post.user.id && <PostInfo postId={post.id}/>}
       </div>
