@@ -33,7 +33,7 @@ const AddPost = () => {
               const formData = new FormData(e.currentTarget);
               await addPost(formData, img?.secure_url || "");
             } else {
-              window.alert("No data added !")
+              window.alert("No data added !");
             }
           }}
           className="flex gap-4"
