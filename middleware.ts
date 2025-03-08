@@ -12,7 +12,7 @@ export default clerkMiddleware(async (auth, req) => {
 
             if (!userId) {
                 console.log("Redirecting to sign-in...");
-                return NextResponse.redirect("https://bliss-social.vercel.app/sign-in"); // To add a live domain after deployment
+                return NextResponse.redirect("https://bliss-social.vercel.app/sign-in"); // Customize the web url to match the deployed domain name
             }
         } catch (error) {
             console.error("Auth protection error:", error);
