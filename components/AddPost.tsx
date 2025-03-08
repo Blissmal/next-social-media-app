@@ -6,6 +6,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import AddPostButton from "./AddPostButton";
 import { addPost } from "@/actions/user.acion";
+import { toast } from "react-toastify";
 
 const AddPost = () => {
   const { user, isLoaded } = useUser();
@@ -33,7 +34,7 @@ const AddPost = () => {
               const formData = new FormData(e.currentTarget);
               await addPost(formData, img?.secure_url || "");
             } else {
-              window.alert("No data added !");
+              toast.info("No info specified !")
             }
           }}
           className="flex gap-4"
