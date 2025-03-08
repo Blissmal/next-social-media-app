@@ -6,6 +6,7 @@ import { Comment, User } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useOptimistic, useState } from "react";
+import { toast } from "react-toastify";
 
 type CommentWithUser = Comment & { user: User };
 
@@ -49,7 +50,7 @@ const CommentList = ({
       const createdComment = await addComment(postId, description)
       setCommentState(prev => [createdComment, ...prev])
     } catch (error) {
-      
+      toast.error("error creating comment! try again")
     }
   }
 
