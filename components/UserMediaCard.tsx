@@ -6,7 +6,6 @@ import React from 'react'
 
 const UserMediaCard = async ({user}: {user: User}) => {
 
-  console.log(user)
 
   const postsWithMedia = await prisma.post.findMany({
     where: {
