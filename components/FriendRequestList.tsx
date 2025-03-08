@@ -3,6 +3,7 @@ import { acceptFollowRequest, declineFollowRequest } from "@/actions/user.acion"
 import { FollowRequest, User } from "@prisma/client";
 import Image from "next/image";
 import React, { useOptimistic, useState } from "react";
+import { toast } from "react-toastify";
 
 type RequestWithUser = FollowRequest & {
   sender: User;
@@ -16,7 +17,7 @@ const FriendRequestList = ({ requests }: { requests: RequestWithUser[] }) => {
             await acceptFollowRequest(userId)
             setRequestState(prev => prev.filter(req => req.id !== requestId))
         } catch (error) {
-            
+            toast.error("something went wrong ! try again")
         }
     }
     const decline = async (requestId: number, userId: string) => {
@@ -25,7 +26,7 @@ const FriendRequestList = ({ requests }: { requests: RequestWithUser[] }) => {
             await declineFollowRequest(userId)
             setRequestState(prev => prev.filter(req => req.id !== requestId))
         } catch (error) {
-            
+          toast.error("something went wrong ! try again")
         }
     }
     const [optimisticRequests, removeOPtimisticRequests] = useOptimistic(requestState, (state, value: number) => state.filter(req => req.id !== value))
