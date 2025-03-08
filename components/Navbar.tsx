@@ -4,10 +4,11 @@ import Image from "next/image";
 import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
 import { syncUser, syncUsername } from "@/actions/user.acion";
+import { toast } from "react-toastify";
 
 const Navbar = async () => {
   const user = await currentUser();
-  if (!user) console.log("not logged in");
+  if (!user) toast.error("user not authenticated")
   if(user) {
     await syncUser()
     await syncUsername()
